@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7fb">
+    <meta name="description" content="Hitung gaji bersih karyawan dan cetak slip gaji dengan mudah.">
+    <title>Penghitung Gaji Karyawan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Beranda Penghitung Gaji">
+        <span class="brand-mark" aria-hidden="true">G</span>
+        <span class="brand-copy"><strong>Gaji<span>Kita</span></strong><small>PAYROLL SIMULATOR</small></span>
+      </a>
+      <span class="topbar-note"><span class="status-dot"></span> Perhitungan lokal & aman</span>
+    </header>
+
+    <main class="page-shell">
+      <section class="intro">
+        <div>
+          <p class="eyebrow">TOOLS PENGGAJIAN</p>
+          <h1>Penghitung Gaji Karyawan</h1>
+          <p class="intro-copy">Hitung gaji bersih dengan cepat, lalu siapkan slip gaji yang siap dicetak.</p>
+        </div>
+        <div class="intro-icon" aria-hidden="true">↗</div>
+      </section>
+
+      <div class="workspace">
+        <section class="panel form-panel" aria-labelledby="form-title">
+          <div class="panel-heading">
+            <div>
+              <p class="section-kicker">DATA PENGGAJIAN</p>
+              <h2 id="form-title">Rincian karyawan</h2>
+            </div>
+            <span class="step-badge">01</span>
+          </div>
+
+          <form id="salary-form">
+            <fieldset>
+              <legend>Informasi karyawan</legend>
+              <div class="field-grid">
+                <label class="field field-wide" for="employee-name">
+                  <span>Nama karyawan <span class="required">*</span></span>
+                  <input id="employee-name" name="name" type="text" placeholder="Contoh: Andi Pratama" autocomplete="name" required maxlength="80">
+                </label>
+                <label class="field" for="employee-role">
+                  <span>Jabatan <span class="required">*</span></span>
+                  <input id="employee-role" name="role" type="text" placeholder="Contoh: Staf Administrasi" required maxlength="60">
+                </label>
+                <label class="field" for="pay-period">
+                  <span>Periode gaji</span>
+                  <input id="pay-period" name="period" type="month" required>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Pendapatan</legend>
+              <div class="field-grid">
+                <label class="field" for="base-salary">
+                  <span>Gaji pokok <span class="required">*</span></span>
+                  <div class="input-prefix"><span>Rp</span><input id="base-salary" name="baseSalary" type="number" min="0" step="1000" placeholder="5.000.000" required inputmode="numeric"></div>
+                </label>
+                <label class="field" for="allowance">
+                  <span>Tunjangan</span>
+                  <div class="input-prefix"><span>Rp</span><input id="allowance" name="allowance" type="number" min="0" step="1000" value="0" inputmode="numeric"></div>
+                </label>
+                <label class="field" for="overtime-hours">
+                  <span>Jam lembur</span>
+                  <div class="input-suffix"><input id="overtime-hours" name="overtimeHours" type="number" min="0" step="0.5" value="0" inputmode="decimal"><span>jam</span></div>
+                </label>
+                <label class="field" for="overtime-rate">
+                  <span>Tarif lembur per jam</span>
+                  <div class="input-prefix"><span>Rp</span><input id="overtime-rate" name="overtimeRate" type="number" min="0" step="1000" value="0" inputmode="numeric"></div>
+                </label>
+              </div>
+              <p class="field-hint">Upah lembur dihitung dari jumlah jam dikali tarif per jam.</p>
+            </fieldset>
+
+            <fieldset class="bonus-fieldset">
+              <legend>Bonus masa kerja &amp; kinerja</legend>
+              <div class="field-grid">
+                <label class="field" for="tenure">
+                  <span>Masa kerja</span>
+                  <div class="input-suffix"><input id="tenure" name="tenure" type="number" min="0" max="50" step="1" value="0" inputmode="numeric"><span>tahun</span></div>
+                </label>
+                <label class="field" for="performance">
+                  <span>Penilaian kinerja</span>
+                  <div class="input-suffix"><select id="performance" name="performance">
+                    <option value="1">1 — Perlu ditingkatkan</option>
+                    <option value="2">2 — Cukup</option>
+                    <option value="3" selected>3 — Baik</option>
+                    <option value="4">4 — Sangat baik</option>
+                    <option value="5">5 — Istimewa</option>
+                  </select><span class="select-arrow" aria-hidden="true">⌄</span></div>
+                </label>
+              </div>
+              <p class="field-hint">Bonus = 1% gaji pokok per tahun kerja (maks. 10%), dikalikan nilai kinerja ÷ 5.</p>
+            </fieldset>
+
+            <fieldset>
+              <legend>Potongan</legend>
+              <div class="field-grid">
+                <label class="field field-wide" for="deductions">
+                  <span>Total potongan</span>
+                  <div class="input-prefix"><span>Rp</span><input id="deductions" name="deductions" type="number" min="0" step="1000" value="0" inputmode="numeric"></div>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="form-actions">
+              <button class="button button-primary" type="submit"><span aria-hidden="true">✦</span> Hitung gaji</button>
+              <button class="button button-quiet" id="reset-button" type="reset">Reset</button>
+            </div>
+            <p class="form-error" id="form-error" role="alert" hidden></p>
+          </form>
+        </section>
+
+        <aside class="panel result-panel" aria-labelledby="result-title" aria-live="polite">
+          <div class="panel-heading result-heading">
+            <div>
+              <p class="section-kicker">RINGKASAN GAJI</p>
+              <h2 id="result-title">Hasil perhitungan</h2>
+            </div>
+            <span class="result-icon" aria-hidden="true">≋</span>
+          </div>
+
+          <div class="empty-state" id="empty-state">
+            <div class="empty-icon" aria-hidden="true">＋</div>
+            <h3>Belum ada perhitungan</h3>
+            <p>Lengkapi data karyawan dan tekan tombol <strong>Hitung gaji</strong> untuk melihat rinciannya.</p>
+          </div>
+
+          <div class="salary-result" id="salary-result" hidden>
+            <div class="net-pay-card">
+              <span>Gaji bersih diterima</span>
+              <strong id="net-salary">Rp0</strong>
+              <small id="result-period">Periode —</small>
+            </div>
+            <div class="employee-summary">
+              <span class="avatar" id="employee-avatar">K</span>
+              <div><strong id="result-name">Nama karyawan</strong><span id="result-role">Jabatan</span></div>
+            </div>
+            <div class="breakdown">
+              <div><span>Gaji pokok</span><strong id="result-base">Rp0</strong></div>
+              <div><span>Tunjangan</span><strong id="result-allowance">Rp0</strong></div>
+              <div><span>Upah lembur</span><strong id="result-overtime">Rp0</strong></div>
+              <div><span>Bonus kinerja</span><strong id="result-bonus">Rp0</strong></div>
+              <div class="deduction-row"><span>Potongan</span><strong id="result-deductions">− Rp0</strong></div>
+              <div class="gross-row"><span>Total pendapatan</span><strong id="result-gross">Rp0</strong></div>
+            </div>
+            <button class="button button-outline" id="print-button" type="button"><span aria-hidden="true">▤</span> Cetak slip gaji</button>
+            <p class="print-note">Gunakan fitur cetak browser untuk menyimpan sebagai PDF.</p>
+          </div>
+          <div class="privacy-note"><span aria-hidden="true">◈</span> Data tidak disimpan dan hanya diproses di perangkat ini.</div>
+        </aside>
+      </div>
+
+      <footer class="page-footer"><span>GajiKita</span><span>Penghitungan yang jelas, keputusan yang tepat.</span></footer>
+    </main>
+
+    <section class="print-slip" id="print-slip" aria-label="Slip gaji untuk dicetak">
+      <div class="slip-header">
+        <div><p class="section-kicker">SLIP PENGGAJIAN</p><h1>Slip Gaji Karyawan</h1></div>
+        <strong>GajiKita</strong>
+      </div>
+      <p class="slip-period" id="slip-period">Periode gaji</p>
+      <div class="slip-employee">
+        <div><span>Nama karyawan</span><strong id="slip-name">—</strong></div>
+        <div><span>Jabatan</span><strong id="slip-role">—</strong></div>
+      </div>
+      <div class="slip-lines">
+        <div><span>Gaji pokok</span><strong id="slip-base">Rp0</strong></div>
+        <div><span>Tunjangan</span><strong id="slip-allowance">Rp0</strong></div>
+        <div><span>Upah lembur</span><strong id="slip-overtime">Rp0</strong></div>
+        <div><span>Bonus masa kerja &amp; kinerja</span><strong id="slip-bonus">Rp0</strong></div>
+        <div><span>Total pendapatan</span><strong id="slip-gross">Rp0</strong></div>
+        <div><span>Potongan</span><strong id="slip-deductions">− Rp0</strong></div>
+        <div class="slip-net"><span>Gaji bersih</span><strong id="slip-net">Rp0</strong></div>
+      </div>
+      <p class="slip-footnote">Slip ini dibuat secara elektronik melalui GajiKita.</p>
+    </section>
+  </body>
+</html>
